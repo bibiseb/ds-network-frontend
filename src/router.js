@@ -7,19 +7,19 @@ import Todos from './components/todos'
 import Login from './components/login'
 
 const routes = [
-	{
-		path: '/',
-		component: Todos
-	},
-	{
-		path: '/auth',
-		component: Login
-	}
+  {
+    path: '/',
+    component: Todos
+  },
+  {
+    path: '/auth',
+    component: Login
+  }
 ]
 
 const router = new VueRouter({
-	mode: 'history',
-	routes
+  mode: 'history',
+  routes
 })
 
 export default router
