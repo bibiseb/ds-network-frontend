@@ -44,6 +44,9 @@ export default {
         message: this.form.message
       }
       contactApi.send(payload).then(() => {
+        this.form.name = '';
+        this.form.email = '';
+        this.form.message = '';
         alert('Message sent!')
       }).catch((error) => {
         if (error.response && error.response.status === 422) {
