@@ -23,7 +23,7 @@ export default {
 		])
 	},
 	created() {
-		this.getUser()
+		this.getUser().catch(() => {})
 	}
 }
 </script>
