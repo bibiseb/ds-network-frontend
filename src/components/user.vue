@@ -23,7 +23,7 @@ export default {
 
 <style>
 #user {
-  float: right;
+  display: block;
   text-align: right;
 }
 </style>

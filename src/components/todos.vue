@@ -20,13 +20,12 @@
               <span class="error" v-if="currentTodo.errors.hasOwnProperty('description')">{{ currentTodo.errors.description.message }}</span>
             </div>
             <button type="button" :disabled="busy" @click="cancel">Cancel</button>
-            <button type="submit" :disabled="busy">Save</button>
+            <button type="submit" :disabled="busy">Update</button>
           </form>
         </template>
       </li>
     </ul>
     <form class="todos__new" @submit.prevent="create" v-if="authenticated">
-      <h3>Create one</h3>
       <div>
         <input type="text" v-model="newTodo.name" id="new-todo-name" required placeholder="Name">
         <span class="error" v-if="newTodo.errors.hasOwnProperty('name')">{{ newTodo.errors.name.message }}</span>
@@ -35,7 +34,7 @@
         <input type="text" v-model="newTodo.description" id="new-todo-description" placeholder="Description (optional)">
         <span class="error" v-if="newTodo.errors.hasOwnProperty('description')">{{ newTodo.errors.description.message }}</span>
       </div>
-      <button type="submit" :disabled="busy">Save</button>
+      <button type="submit" :disabled="busy">Create</button>
     </form>
   </div>
 </template>
@@ -72,7 +71,6 @@ export default {
           this.todos.splice(index, 1)
         }).catch((error) => {
           console.error(error)
-          alert(error.message)
         }).finally(() => {
           this.busy = false
         })
@@ -186,7 +184,7 @@ export default {
 #todos > .todos__new {
   border: 1px solid lightgrey;
   border-radius: 3px;
-  padding: 0 15px 15px 15px;
+  padding: 15px;
 }
 #todos > .todos__new > div, #todos .todos__edit > div {
   margin-bottom: 15px;
