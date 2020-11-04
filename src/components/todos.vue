@@ -1,11 +1,11 @@
 <template>
   <div id="todos">
-    <h2>Todo list</h2>
+    <h2>Todo</h2>
     <ul>
       <li v-for="todo in todos" :key="todo._id">
         <template v-if="currentTodo._id !== todo._id">
           {{ todo.name }}
-          <template v-if="authenticated">
+          <template v-if="authenticated && ['ADMINISTRATOR'].includes(user.role)">
             (<a href="#" @click.prevent="edit(todo._id)">edit</a> or <a href="#" @click.prevent="remove(todo._id)">remove</a>)
           </template>
         </template>
@@ -25,7 +25,7 @@
         </template>
       </li>
     </ul>
-    <form class="todos__new" @submit.prevent="create" v-if="authenticated">
+    <form class="todos__new" @submit.prevent="create" v-if="authenticated && ['MEMBER', 'ADMINISTRATOR'].includes(user.role)">
       <div>
         <input type="text" v-model="newTodo.name" id="new-todo-name" required placeholder="Name">
         <span class="error" v-if="newTodo.errors.hasOwnProperty('name')">{{ newTodo.errors.name.message }}</span>
@@ -197,5 +197,8 @@ export default {
   border: 1px solid lightgrey;
   border-radius: 3px;
   margin-right: 5px;
+}
+.error {
+  color: red;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div id="contact">
-    <h2>Leave a message</h2>
+    <h2>Contact</h2>
     <form class="contact__form" @submit.prevent="send">
       <div>
         <input type="text" v-model="form.name" id="contact-name" required placeholder="Name">
@@ -44,9 +44,9 @@ export default {
         message: this.form.message
       }
       contactApi.send(payload).then(() => {
-        this.form.name = '';
-        this.form.email = '';
-        this.form.message = '';
+        this.form.name = ''
+        this.form.email = ''
+        this.form.message = ''
         alert('Message sent!')
       }).catch((error) => {
         if (error.response && error.response.status === 422) {
@@ -97,5 +97,8 @@ export default {
   border: 1px solid lightgrey;
   border-radius: 3px;
   margin-right: 5px;
+}
+.error {
+  color: red;
 }
 </style>
