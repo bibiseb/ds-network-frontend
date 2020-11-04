@@ -1,9 +1,11 @@
 <template>
-  <div id="user" v-if="authenticated">
-    Hello {{ user.name }}!<br>
+  <div id="user" class="box" v-if="authenticated">
+    Hello, {{ user.name }}
     <a href="#" @click.prevent="logout">(logout)</a>
   </div>
-  <router-link id="user" v-else to="/auth">(login)</router-link>
+  <div id="user" class="box" v-else>
+    <router-link to="/auth">(login)</router-link>
+  </div>
 </template>
 
 <script>
@@ -23,7 +25,6 @@ export default {
 
 <style>
 #user {
-  display: block;
-  text-align: right;
+  text-align: center;
 }
 </style>

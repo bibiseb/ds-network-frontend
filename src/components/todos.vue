@@ -1,31 +1,38 @@
 <template>
-  <div id="todos">
-    <h2>Todo</h2>
-    <ul>
-      <li v-for="todo in todos" :key="todo._id">
-        <template v-if="currentTodo._id !== todo._id">
-          {{ todo.name }}
-          <template v-if="authenticated && ['ADMINISTRATOR'].includes(user.role)">
-            (<a href="#" @click.prevent="edit(todo._id)">edit</a> or <a href="#" @click.prevent="remove(todo._id)">remove</a>)
+  <div id="todos" class="box">
+    <div>
+      <h2>Todo</h2>
+      <ul>
+        <li v-for="todo in todos" :key="todo._id">
+          <div class="todos__container" v-if="currentTodo._id !== todo._id">
+            <div class="todos__todo">
+              <input type="checkbox">
+              {{ todo.name }}
+            </div>
+            <div class="todos__ctrl" v-if="authenticated && ['ADMINISTRATOR'].includes(user.role)">
+              <a href="#" @click.prevent="edit(todo._id)">edit</a> | <a href="#" @click.prevent="remove(todo._id)">remove</a>
+            </div>
+          </div>
+          <template v-else>
+            <form class="form" @submit.prevent="update" v-if="authenticated">
+              <div>
+                <input type="text" v-model="currentTodo.name" id="cur-todo-name" required placeholder="Name">
+                <span class="error" v-if="currentTodo.errors.hasOwnProperty('name')">{{ currentTodo.errors.name.message }}</span>
+              </div>
+              <div>
+                <input type="text" v-model="currentTodo.description" id="cur-todo-description" placeholder="Description (optional)">
+                <span class="error" v-if="currentTodo.errors.hasOwnProperty('description')">{{ currentTodo.errors.description.message }}</span>
+              </div>
+              <div class="form__actions">
+                <button type="button" :disabled="busy" @click="cancel">Cancel</button>
+                <button type="submit" :disabled="busy">Update</button>
+              </div>
+            </form>
           </template>
-        </template>
-        <template v-else>
-          <form class="todos__edit" @submit.prevent="update" v-if="authenticated">
-            <div>
-              <input type="text" v-model="currentTodo.name" id="cur-todo-name" required placeholder="Name">
-              <span class="error" v-if="currentTodo.errors.hasOwnProperty('name')">{{ currentTodo.errors.name.message }}</span>
-            </div>
-            <div>
-              <input type="text" v-model="currentTodo.description" id="cur-todo-description" placeholder="Description (optional)">
-              <span class="error" v-if="currentTodo.errors.hasOwnProperty('description')">{{ currentTodo.errors.description.message }}</span>
-            </div>
-            <button type="button" :disabled="busy" @click="cancel">Cancel</button>
-            <button type="submit" :disabled="busy">Update</button>
-          </form>
-        </template>
-      </li>
-    </ul>
-    <form class="todos__new" @submit.prevent="create" v-if="authenticated && ['MEMBER', 'ADMINISTRATOR'].includes(user.role)">
+        </li>
+      </ul>
+    </div>
+    <form class="form" @submit.prevent="create" v-if="authenticated && ['MEMBER', 'ADMINISTRATOR'].includes(user.role)">
       <div>
         <input type="text" v-model="newTodo.name" id="new-todo-name" required placeholder="Name">
         <span class="error" v-if="newTodo.errors.hasOwnProperty('name')">{{ newTodo.errors.name.message }}</span>
@@ -34,7 +41,9 @@
         <input type="text" v-model="newTodo.description" id="new-todo-description" placeholder="Description (optional)">
         <span class="error" v-if="newTodo.errors.hasOwnProperty('description')">{{ newTodo.errors.description.message }}</span>
       </div>
-      <button type="submit" :disabled="busy">Create</button>
+      <div class="form__actions">
+        <button type="submit" :disabled="busy">Create</button>
+      </div>
     </form>
   </div>
 </template>
@@ -148,7 +157,6 @@ export default {
         this.todos = todos
       }).catch((error) => {
         console.error(error)
-        alert(error.message)
       })
     }
   },
@@ -160,45 +168,12 @@ export default {
 
 <style>
 #todos {
-  border: 1px solid lightgrey;
-  border-radius: 5px;
-  padding: 15px;
-  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-#todos > h2 {
-  border-bottom: 1px solid lightgrey;
-}
-#todos > ul {
-  list-style: none;
-  padding: 0;
-  border: 1px solid lightgrey;
-  border-radius: 3px;
-}
-#todos > ul > li {
-  padding: 15px;
-  border-bottom: 1px solid lightgrey;
-}
-#todos > ul > li:last-child {
-  border: none;
-}
-#todos > .todos__new {
-  border: 1px solid lightgrey;
-  border-radius: 3px;
-  padding: 15px;
-}
-#todos > .todos__new > div, #todos .todos__edit > div {
-  margin-bottom: 15px;
-}
-#todos > .todos__new > div > input, #todos .todos__edit > div > input {
-  border: 1px solid lightgrey;
-  border-radius: 3px;
-}
-#todos > .todos__new > button, #todos .todos__edit > button {
-  border: 1px solid lightgrey;
-  border-radius: 3px;
-  margin-right: 5px;
-}
-.error {
-  color: red;
+.todos__container {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

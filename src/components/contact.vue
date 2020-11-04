@@ -1,7 +1,7 @@
 <template>
-  <div id="contact">
+  <div id="contact" class="box">
     <h2>Contact</h2>
-    <form class="contact__form" @submit.prevent="send">
+    <form class="form" @submit.prevent="send">
       <div>
         <input type="text" v-model="form.name" id="contact-name" required placeholder="Name">
         <span class="error" v-if="form.errors.hasOwnProperty('name')">{{ form.errors.name.message }}</span>
@@ -14,7 +14,9 @@
         <textarea v-model="form.message" id="contact-message" required placeholder="Message"></textarea>
         <span class="error" v-if="form.errors.hasOwnProperty('message')">{{ form.errors.message.message }}</span>
       </div>
-      <button type="submit" :disabled="form.busy">Send</button>
+      <div class="form__actions">
+        <button type="submit" :disabled="form.busy">Send</button>
+      </div>
     </form>
   </div>
 </template>
@@ -69,36 +71,3 @@ export default {
   }
 }
 </script>
-
-<style>
-#contact {
-  border: 1px solid lightgrey;
-  border-radius: 5px;
-  padding: 15px;
-  margin-top: 15px;
-}
-#contact > h2 {
-  border-bottom: 1px solid lightgrey;
-}
-#contact > .contact__form {
-  border: 1px solid lightgrey;
-  border-radius: 3px;
-  padding: 15px;
-}
-#contact > .contact__form > div {
-  margin-bottom: 15px;
-}
-#contact > .contact__form > div > input, #contact > .contact__form > div > textarea {
-  border: 1px solid lightgrey;
-  border-radius: 3px;
-  width: 100%;
-}
-#contact > .contact__form > button {
-  border: 1px solid lightgrey;
-  border-radius: 3px;
-  margin-right: 5px;
-}
-.error {
-  color: red;
-}
-</style>

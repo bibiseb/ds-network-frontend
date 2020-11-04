@@ -1,5 +1,5 @@
 <template>
-  <div id="introduction">
+  <div id="introduction" class="box">
     <p>Welcome to my website!</p>
     <p>
       Hello! I'm Sébastien.<br>
@@ -22,3 +22,12 @@ export default {
   name: 'Introduction'
 }
 </script>
+
+<style>
+#introduction {
+  line-height: 26px;
+}
+#introduction p {
+  margin: 0 0 15px 0;
+}
+</style>
