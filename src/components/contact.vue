@@ -15,7 +15,8 @@
         <span class="error" v-if="form.errors.hasOwnProperty('message')">{{ form.errors.message.message }}</span>
       </div>
       <div class="form__actions">
-        <button type="submit" :disabled="form.busy">Send</button>
+        <button type="submit" :disabled="form.busy" v-if="!form.busy">Send</button>
+        <div v-else><div class="loading__wrapper"><loading></loading></div></div>
       </div>
     </form>
   </div>
@@ -23,9 +24,13 @@
 
 <script>
 import contactApi from '../api/contact'
+import Loading from '../components/loading';
 
 export default {
   name: 'Contact',
+  components: {
+    Loading
+  },
   data() {
     return {
       form: {
@@ -71,3 +76,11 @@ export default {
   }
 }
 </script>
+
+<style>
+#contact .loading__wrapper {
+  width: 40px;
+  height: 40px;
+  margin: auto;
+}
+</style>

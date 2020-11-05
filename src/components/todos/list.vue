@@ -1,5 +1,5 @@
 <template>
-  <div id="todos" class="box">
+  <div id="todos" class="box" v-if="!loading">
     <div>
       <h2>Todo</h2>
       <ul>
@@ -27,6 +27,11 @@
       @submit="create">
     </todo-form>
   </div>
+  <div id="todos" class="box" v-else>
+    <div class="loading__wrapper">
+      <loading></loading>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -34,10 +39,12 @@ import todoApi from '../../api/todo'
 import authMixin from '../../mixins/auth'
 import TodoItem from './item'
 import TodoForm from './form'
+import Loading from '../loading'
 
 export default {
   name: 'TodoList',
   components: {
+    Loading,
     TodoItem,
     TodoForm
   },
@@ -57,7 +64,8 @@ export default {
         errors: {},
         busy: false
       },
-      todos: []
+      todos: [],
+      loading: false
     }
   },
   methods: {
@@ -150,10 +158,13 @@ export default {
       }
     },
     getTodos() {
+      this.loading = true
       todoApi.get().then((todos) => {
         this.todos = todos
       }).catch((error) => {
         console.error(error)
+      }).finally(() => {
+        this.loading = false
       })
     }
   },
@@ -176,5 +187,10 @@ export default {
 .todos__container .-complete {
   text-decoration: line-through;
   color: grey;
+}
+#todos .loading__wrapper {
+  width: 100px;
+  height: 100px;
+  margin: auto;
 }
 </style>
