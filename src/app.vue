@@ -7,19 +7,19 @@
     </h1>
     <div class="row">
       <router-view></router-view>
-      <user></user>
+      <app-menu></app-menu>
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-import User from './components/user'
+import AppMenu from './components/menu'
 
 export default {
   name: 'App',
   components: {
-    User
+    AppMenu
   },
   data() {
     return {
@@ -101,9 +101,8 @@ a {
   margin: 15px;
   padding: 15px;
   background: white;
-  flex-grow: 1;
-  width: 100%;
   position: relative;
+  flex-basis: 100%;
 }
 .box:before {
   content: '';
