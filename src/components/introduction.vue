@@ -1,6 +1,6 @@
 <template>
   <div id="introduction" class="box">
-    <p>Welcome to my website!</p>
+    <p>Welcome on my website!</p>
     <p>
       Hello! I'm Sébastien.<br>
       I was born in Liège (Belgium) in 1982.<br>
@@ -12,7 +12,8 @@
       and another one for <a href="https://github.com/bibiseb/ds-network-api" target="_blank">the backend</a>.<br>
       The frontend is hosted on Amazon S3 and is delivered by CloudFront while the backend runs on Amazon Lambda and is forwarded through the Amazon API Gateway.
     </p>
-    <p>I you like my work, or want to comment it, feel free to <router-link to="/contact">leave a message</router-link>!</p>
+    <p>I have things <router-link to="/todos">to do</router-link>!</p>
+    <p>If you like my work, or want to comment it, feel free to <router-link to="/contact">leave a message</router-link>!</p>
     <p>You can also have a look at my <a href="https://www.linkedin.com/in/sdevroye/" target="_blank">LinkedIn profile</a>.</p>
   </div>
 </template>

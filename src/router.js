@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+import Introduction from './components/introduction'
 import Todos from './components/todos'
 import Contact from './components/contact'
 import Login from './components/login'
@@ -10,6 +11,10 @@ import Login from './components/login'
 const routes = [
   {
     path: '/',
+    component: Introduction
+  },
+  {
+    path: '/todos',
     component: Todos
   },
   {

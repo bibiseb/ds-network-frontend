@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <h1>
+    <h1 :class="logoClasses">
       <router-link to="/">
         DS <span>network</span>
       </router-link>
     </h1>
     <div class="row">
-      <introduction></introduction>
       <router-view></router-view>
       <user></user>
     </div>
@@ -16,13 +15,16 @@
 <script>
 import { mapActions } from 'vuex'
 import User from './components/user'
-import Introduction from './components/introduction'
 
 export default {
   name: 'App',
   components: {
-    User,
-    Introduction
+    User
+  },
+  data() {
+    return {
+      logoClasses: []
+    }
   },
   methods: {
     ...mapActions([
@@ -31,6 +33,16 @@ export default {
   },
   created() {
     this.getUser().catch(() => {})
+    let scrollTop = 0;
+    window.addEventListener('scroll', () => {
+      const st = window.pageXOffset || document.documentElement.scrollTop;
+      if (st > scrollTop) {
+        this.logoClasses = ['small']
+      } else {
+        this.logoClasses = []
+      }
+      scrollTop = st <= 0 ? 0 : st
+    })
   }
 }
 </script>
@@ -39,7 +51,7 @@ export default {
 *, *::before, *::after {
   box-sizing: border-box;
 }
-html, body {
+body {
   margin: 0;
   padding: 15px;
   font-family: Arial, sans-serif;
@@ -57,12 +69,16 @@ h1 {
   width: 150px;
   height: 150px;
   text-align: center;
-  margin: auto;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  position: sticky;
+  margin: 0;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
 }
 h1 a {
   color: #333;
@@ -83,13 +99,22 @@ a {
 }
 .box {
   margin: 15px;
-  border: 1px solid lightgrey;
   padding: 15px;
-  border-radius: 5px;
   background: white;
-  box-shadow: 0 0 15px 1px rgba(0, 0, 0, .2);
   flex-grow: 1;
   width: 100%;
+  position: relative;
+}
+.box:before {
+  content: '';
+  background: mediumaquamarine;
+  position: absolute;
+  z-index: -1;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
+  transform: skew(1deg, 1deg);
 }
 h2 {
   text-transform: uppercase;
@@ -114,6 +139,7 @@ button, .button {
   border-radius: 3px;
   margin: 1px;
   color: #333;
+  font-size: 16px;
 }
 .form {
 
