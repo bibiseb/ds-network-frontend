@@ -8,7 +8,8 @@
             :todo="todo"
             v-if="todoId !== todo._id"
             @edit="edit"
-            @remove="remove">
+            @remove="remove"
+            @toggle="toggle">
           </todo-item>
           <todo-form
             v-model="currentTodo"
@@ -60,6 +61,17 @@ export default {
     }
   },
   methods: {
+    toggle(todo) {
+      todoApi.update(todo._id, { complete: todo.complete }).then((todo) => {
+        const index = this.todos.findIndex((item) => item._id === todo._id)
+        this.todos.splice(index, 1, todo)
+      }).catch((error) => {
+        const index = this.todos.findIndex((item) => item._id === todo._id)
+        todo.complete = !todo.complete
+        this.todos.splice(index, 1, todo)
+        console.error(error)
+      })
+    },
     cancelNew() {
       this.newTodo.name = ''
       this.newTodo.description = ''
@@ -103,7 +115,7 @@ export default {
     update(payload) {
       this.busy = true
       todoApi.update(this.todoId, payload).then((todo) => {
-        const index = this.todos.findIndex((todo) => todo._id === this.todoId)
+        const index = this.todos.findIndex((item) => item._id === todo._id)
         this.todos.splice(index, 1, todo)
         this.currentTodo.name = ''
         this.currentTodo.description = ''
@@ -160,5 +172,9 @@ export default {
 .todos__container {
   display: flex;
   justify-content: space-between;
+}
+.todos__container .-complete {
+  text-decoration: line-through;
+  color: grey;
 }
 </style>
