@@ -1,7 +1,10 @@
 <template>
   <div class="todos__container">
     <div :class="{ 'todos__todo': true, '-complete': todo.complete }">
-      <input type="checkbox" v-model="todo.complete" @change="$emit('toggle', todo)">
+      <input
+        type="checkbox"
+        v-model="todo.complete"
+        @change="$emit('toggle', todo)" v-if="authenticated && ['ADMINISTRATOR'].includes(user.role)">
       {{ todo.name }}
     </div>
     <div class="todos__ctrl" v-if="authenticated && ['ADMINISTRATOR'].includes(user.role)">
