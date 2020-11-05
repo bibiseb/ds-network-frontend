@@ -7,6 +7,7 @@ import Introduction from './components/introduction'
 import Todos from './components/todos/list'
 import Contact from './components/contact'
 import Login from './components/login'
+import NotFound from './components/not-found'
 
 const routes = [
   {
@@ -24,6 +25,10 @@ const routes = [
   {
     path: '/auth',
     component: Login
+  },
+  {
+    path: '*',
+    component: NotFound
   }
 ]
 

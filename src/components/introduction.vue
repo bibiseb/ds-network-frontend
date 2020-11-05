@@ -1,6 +1,6 @@
 <template>
   <div id="introduction" class="box">
-    <p>Welcome on my website!</p>
+    <h2>Welcome!</h2>
     <p>
       Hello! I'm Sébastien.<br>
       I was born in Liège (Belgium) in 1982.<br>
