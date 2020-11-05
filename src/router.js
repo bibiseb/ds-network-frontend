@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import Introduction from './components/introduction'
-import Todos from './components/todos'
+import Todos from './components/todos/list'
 import Contact from './components/contact'
 import Login from './components/login'
 
