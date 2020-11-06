@@ -21,3 +21,7 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+/public/google15469432fed37097.html
+/public/robots.txt
+/public/sitemap.xml
