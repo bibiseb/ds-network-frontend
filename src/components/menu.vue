@@ -39,6 +39,7 @@ export default {
   display: block;
   color: #333;
   text-decoration: none;
+  text-transform: uppercase;
   font-weight: bold;
   transition: background .1s ease-in-out,
               transform .1s ease-in-out,
