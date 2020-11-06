@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1 :class="logoClasses">
+    <h1>
       <router-link to="/">
         DS <span>network</span>
       </router-link>
@@ -21,11 +21,6 @@ export default {
   components: {
     AppMenu
   },
-  data() {
-    return {
-      logoClasses: []
-    }
-  },
   methods: {
     ...mapActions([
       'getUser'
@@ -33,16 +28,6 @@ export default {
   },
   created() {
     this.getUser().catch(() => {})
-    let scrollTop = 0;
-    window.addEventListener('scroll', () => {
-      const st = window.pageXOffset || document.documentElement.scrollTop;
-      if (st > scrollTop) {
-        this.logoClasses = ['small']
-      } else {
-        this.logoClasses = []
-      }
-      scrollTop = st <= 0 ? 0 : st
-    })
   }
 }
 </script>
@@ -53,7 +38,7 @@ export default {
 }
 body {
   margin: 0;
-  padding: 15px;
+  padding: 0 15px;
   font-family: Arial, sans-serif;
   font-size: 16px;
   color: #333;
@@ -139,9 +124,6 @@ button, .button {
   margin: 1px;
   color: #333;
   font-size: 16px;
-}
-.form {
-
 }
 .form > div {
   margin-bottom: 15px;

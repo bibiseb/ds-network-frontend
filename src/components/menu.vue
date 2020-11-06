@@ -37,10 +37,10 @@ export default {
 }
 #menu a {
   display: block;
+  color: #333;
   text-decoration: none;
   font-weight: bold;
-  transition: color .1s ease-in-out,
-              background .1s ease-in-out,
+  transition: background .1s ease-in-out,
               transform .1s ease-in-out,
               padding .1s ease-in-out,
               margin .1s ease-in-out;
@@ -49,7 +49,7 @@ export default {
 #menu a:hover {
   color: #333;
   background: mediumaquamarine;
-  transform: scale(1.5);
+  transform: scale(1.5) rotate(-2deg);
   padding: 5px 0;
   margin: -5px 0;
 }
