@@ -15,6 +15,7 @@
 <script>
 import { mapActions } from 'vuex'
 import AppMenu from './components/menu'
+import 'video.js/dist/video-js.css'
 
 export default {
   name: 'App',

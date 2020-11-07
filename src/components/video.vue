@@ -1,76 +1,62 @@
 <template>
-  <div id="video" class="box">
-    <h2>Sample video!</h2>
-    <button type="button" v-if="!paid" @click="pay" :disabled="busy">Pay & Play</button>
-    <video v-else id="player" class="video-js"></video>
+  <div id="video">
+    <button type="button" v-if="!paid" @click="pay" :disabled="busy">Pay &amp; Play</button>
+    <video-player v-else :video-src="playerSrc" :player-id="'player-' + this.key" :player-options="playerOptions"></video-player>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
 import payApi from '../api/pay'
-import videojs from 'video.js'
-import 'video.js/dist/video-js.css'
+import config from '../config'
+import VideoPlayer from './video-player'
 
 export default {
   name: 'Video',
+  components: {
+    VideoPlayer
+  },
   data() {
     return {
+      key: null,
       paid: false,
       busy: false,
-      sources: [
-        {
-          key: 'sample1',
-          url: 'https://videos.ds-network.be/sample1/sample1.m3u8'
-        },
-        {
-          key: 'sample2',
-          url: 'https://videos.ds-network.be/sample2/sample2.m3u8'
+      playerOptions: {
+        controls: true,
+        fluid: true,
+        html5: {
+          vhs: {
+            withCredentials: true
+          }
         }
-      ],
-      sourceIndex: null
+      }
+    }
+  },
+  computed: {
+    playerSrc() {
+      return config.videos.baseURL + this.key + '/' + this.key + '.m3u8'
     }
   },
   methods: {
     pay() {
       this.busy = true
-      payApi.pay({ key: this.sources[this.sourceIndex].key }).then(() => {
+      payApi.pay({ key: this.key }).then(() => {
         this.paid = true
-        Vue.nextTick(this.enable)
       }).catch((error) => {
         console.error(error)
       }).finally(() => {
         this.busy = false
       })
-    },
-    enable() {
-      const player = videojs('player', {
-        controls: true,
-        fluid: true,
-        html5: {
-          hls: {
-            withCredentials: true
-          }
-        }
-      });
-      player.on('ready', () => {
-        player.src({
-          type: 'application/x-mpegURL',
-          src: this.sources[this.sourceIndex].url
-        })
-      })
     }
   },
   created() {
-    const length = this.sources.length
-    this.sourceIndex = Math.round(Math.random() * (length - 1))
+    this.key = this.$route.params.key
+  },
+  beforeRouteUpdate(to, from, next) {
+    if (this.paid) {
+      this.paid = false
+    }
+    this.key = to.params.key
+    next()
   }
 }
 </script>
-
-<style>
-#video .video-js {
-  width: 100%;
-  height: auto;
-}
-</style>

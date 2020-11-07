@@ -3,6 +3,7 @@
     <ul>
       <li><router-link to="/">Home</router-link></li>
       <li><router-link to="/todos">Objectives</router-link></li>
+      <li><router-link to="/videos">Videos</router-link></li>
       <li><router-link to="/contact">Contact</router-link></li>
       <li>
         <a href="#" @click.prevent="logout" v-if="authenticated">Logout</a>

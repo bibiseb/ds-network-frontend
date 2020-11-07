@@ -8,6 +8,7 @@ import Todos from './components/todos/list'
 import Contact from './components/contact'
 import Login from './components/login'
 import NotFound from './components/not-found'
+import Videos from './components/videos'
 import Video from './components/video'
 
 const routes = [
@@ -28,8 +29,14 @@ const routes = [
     component: Login
   },
   {
-    path: '/video',
-    component: Video
+    path: '/videos',
+    component: Videos,
+    children: [
+      {
+        path: ':key',
+        component: Video
+      }
+    ]
   },
   {
     path: '*',
