@@ -9,5 +9,14 @@ export default {
                 reject(error)
             })
         });
+    },
+    watch(videoId) {
+        return new Promise((resolve, reject) => {
+            http.post(`videos/${videoId}/watch`).then(() => {
+                resolve()
+            }).catch((error) => {
+                reject(error)
+            })
+        });
     }
 }

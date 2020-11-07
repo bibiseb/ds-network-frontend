@@ -1,12 +1,12 @@
 <template>
   <div id="video">
-    <button type="button" v-if="!paid" @click="pay" :disabled="busy">Pay &amp; Play</button>
+    <button type="button" v-if="!authorized" @click="watch" :disabled="busy">Pay &amp; Play</button>
     <video-player v-else :video-src="playerSrc" :player-id="'player-' + this.key" :player-options="playerOptions"></video-player>
   </div>
 </template>
 
 <script>
-import payApi from '../api/pay'
+import videoApi from '../api/video'
 import config from '../config'
 import VideoPlayer from './video-player'
 
@@ -15,10 +15,15 @@ export default {
   components: {
     VideoPlayer
   },
+  props: {
+    videos: {
+      type: Array
+    }
+  },
   data() {
     return {
       key: null,
-      paid: false,
+      authorized: false,
       busy: false,
       playerOptions: {
         controls: true,
@@ -37,23 +42,26 @@ export default {
     }
   },
   methods: {
-    pay() {
-      this.busy = true
-      payApi.pay({ key: this.key }).then(() => {
-        this.paid = true
-      }).catch((error) => {
-        console.error(error)
-      }).finally(() => {
-        this.busy = false
-      })
+    watch() {
+      const video = this.videos.find((video) => video.key === this.key)
+      if (video) {
+        this.busy = true
+        videoApi.watch(video._id).then(() => {
+          this.authorized = true
+        }).catch((error) => {
+          console.error(error)
+        }).finally(() => {
+          this.busy = false
+        })
+      }
     }
   },
   created() {
     this.key = this.$route.params.key
   },
   beforeRouteUpdate(to, from, next) {
-    if (this.paid) {
-      this.paid = false
+    if (this.authorized) {
+      this.authorized = false
     }
     this.key = to.params.key
     next()

@@ -6,7 +6,7 @@
         <router-link :to="'/videos/' + video.key">{{ video.name }}</router-link>
       </li>
     </ul>
-    <router-view></router-view>
+    <router-view :videos="videos"></router-view>
   </div>
   <div id="videos" class="box" v-else>
     <div class="loading__wrapper">
