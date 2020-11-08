@@ -1,12 +1,18 @@
 <template>
   <div id="videos" class="box" v-if="!loading">
     <h2>Sample videos!</h2>
+    <router-view :videos="videos"></router-view>
     <ul>
       <li v-for="video in videos" :key="video.id">
-        <router-link :to="'/videos/' + video.key">{{ video.name }}</router-link>
+        <img v-if="video.image" :src="video.image">
+        <h3>{{ video.name }}</h3>
+        <p v-if="video.description">{{ video.description }}</p>
+        <router-link :to="'/videos/' + video.key">View</router-link>
+        <template v-if="video.price && !inCart(video)">
+          - <a href="#" @click.prevent="addToCart(video)">Add to cart</a>
+        </template>
       </li>
     </ul>
-    <router-view :videos="videos"></router-view>
   </div>
   <div id="videos" class="box" v-else>
     <div class="loading__wrapper">
@@ -18,12 +24,14 @@
 <script>
 import videoApi from '../api/video'
 import Loading from './loading'
+import cartMixin from '../mixins/cart'
 
 export default {
   name: 'Videos',
   components: {
     Loading
   },
+  mixins: [cartMixin],
   data() {
     return {
       videos: [],

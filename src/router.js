@@ -10,6 +10,7 @@ import Login from './components/login'
 import NotFound from './components/not-found'
 import Videos from './components/videos'
 import Video from './components/video'
+import Checkout from './components/checkout'
 
 const routes = [
   {
@@ -37,6 +38,10 @@ const routes = [
         component: Video
       }
     ]
+  },
+  {
+    path: '/checkout/:orderId',
+    component: Checkout
   },
   {
     path: '*',

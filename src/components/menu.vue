@@ -1,5 +1,6 @@
 <template>
   <div id="menu" class="box">
+    <cart></cart>
     <ul>
       <li><router-link to="/">Home</router-link></li>
       <li><router-link to="/todos">Objectives</router-link></li>
@@ -16,10 +17,14 @@
 <script>
 import authMixin from '../mixins/auth'
 import { mapActions } from 'vuex'
+import Cart from './cart'
 
 export default {
   name: 'User',
   mixins: [authMixin],
+  components: {
+    Cart
+  },
   methods: {
     ...mapActions([
       'logout'
