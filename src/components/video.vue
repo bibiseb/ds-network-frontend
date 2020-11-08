@@ -4,7 +4,12 @@
       <img v-if="video && video.poster" :src="video.poster">
       <span>Play</span>
     </button>
-    <video-player v-else :video-src="playerSrc" :player-id="'player-' + this.key" :player-options="playerOptions"></video-player>
+    <video-player
+      v-else
+      :video-src="playerSrc"
+      :player-id="'player-' + this.key"
+      :player-options="playerOptions">
+    </video-player>
   </div>
 </template>
 
@@ -27,10 +32,15 @@ export default {
     return {
       key: null,
       authorized: false,
-      busy: false,
-      playerOptions: {
+      busy: false
+    }
+  },
+  computed: {
+    playerOptions() {
+      return {
         autoplay: true,
         controls: true,
+        poster: this.video.poster,
         fluid: true,
         html5: {
           vhs: {
@@ -38,9 +48,7 @@ export default {
           }
         }
       }
-    }
-  },
-  computed: {
+    },
     video() {
       return this.videos.find((video) => video.key === this.key)
     },
@@ -85,6 +93,8 @@ export default {
   cursor: pointer;
 }
 #watch-video img {
+  width: 100%;
+  height: auto;
   position: absolute;
   top: 0;
   right: 0;
