@@ -1,20 +1,17 @@
 <template>
-  <div id="cart">
+  <div id="cart" v-if="!empty">
     <h2>Cart</h2>
-    <template v-if="!empty">
-      <ul>
-        <li v-for="item in cart" :key="item._id">
-          {{ item.name }} x{{ item.quantity }}
-          <button @click="removeFromCart(item)">x</button>
-        </li>
-      </ul>
-      <p>
-        <button @click="setOrder" :disabled="busy">
-          Order for {{ format(total) }}
-        </button>
-      </p>
-    </template>
-    <p v-else>Your cart is empty</p>
+    <ul>
+      <li v-for="item in cart" :key="item._id">
+        {{ item.name }} x{{ item.quantity }}
+        <button @click="removeFromCart(item)">x</button>
+      </li>
+    </ul>
+    <p>
+      <button @click="setOrder" :disabled="busy">
+        Order for {{ format(total) }}
+      </button>
+    </p>
   </div>
 </template>
 

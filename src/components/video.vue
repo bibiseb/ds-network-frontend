@@ -60,7 +60,7 @@ export default {
     watch() {
       if (this.video) {
         this.busy = true
-        videoApi.watch(this.video._id).then(() => {
+        videoApi.play(this.video._id).then(() => {
           this.authorized = true
         }).catch((error) => {
           console.error(error)

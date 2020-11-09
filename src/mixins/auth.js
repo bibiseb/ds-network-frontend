@@ -7,6 +7,11 @@ export default {
     }),
     authenticated() {
       return this.user !== null
+    },
+    owned() {
+      return (video) => {
+        return this.user !== null && !!this.user.videos.find((item) => item._id === video._id)
+      }
     }
   }
 }

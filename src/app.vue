@@ -125,6 +125,7 @@ button, .button {
   margin: 1px;
   color: #333;
   font-size: 16px;
+  text-decoration: none;
 }
 .form > div {
   margin-bottom: 15px;

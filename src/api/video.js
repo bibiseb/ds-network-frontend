@@ -10,9 +10,9 @@ export default {
             })
         });
     },
-    watch(videoId) {
+    play(videoId) {
         return new Promise((resolve, reject) => {
-            http.post(`videos/${videoId}/watch`).then(() => {
+            http.post(`videos/${videoId}/play`).then(() => {
                 resolve()
             }).catch((error) => {
                 reject(error)
