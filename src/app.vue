@@ -163,7 +163,19 @@ button, .button {
   height: 200%;
   padding: 0 15px;
 }
-
+table {
+  width: 100%;
+}
+th {
+  text-align: left;
+}
+th, td {
+  padding: 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+tfoot th, tfoot td {
+  border-bottom: none;
+}
 @media only screen and (max-width: 767px) {
   .row {
     flex-direction: column;

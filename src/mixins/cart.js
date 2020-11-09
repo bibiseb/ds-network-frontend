@@ -14,16 +14,14 @@ export default {
     },
     empty() {
       return this.cart.length === 0
-    },
-    canCheckout() {
-      return this.order === null
     }
   },
   methods: {
     ...mapActions([
       'addToCart',
       'removeFromCart',
-      'checkout'
+      'checkout',
+      'resetCart'
     ]),
     format(price) {
       return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR' }).format(price)

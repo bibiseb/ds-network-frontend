@@ -8,7 +8,7 @@
           <button @click="removeFromCart(item)">x</button>
         </li>
       </ul>
-      <p v-if="canCheckout">
+      <p>
         <button @click="setOrder" :disabled="busy">
           Order for {{ format(total) }}
         </button>

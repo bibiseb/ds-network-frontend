@@ -14,36 +14,44 @@ import Checkout from './components/checkout'
 
 const routes = [
   {
+    name: 'home',
     path: '/',
     component: Introduction
   },
   {
+    name: 'todos',
     path: '/todos',
     component: Todos
   },
   {
+    name: 'contact',
     path: '/contact',
     component: Contact
   },
   {
+    name: 'auth',
     path: '/auth',
     component: Login
   },
   {
+    name: 'videos',
     path: '/videos',
     component: Videos,
     children: [
       {
+        name: 'video',
         path: ':key',
         component: Video
       }
     ]
   },
   {
+    name: 'checkout',
     path: '/checkout/:orderId',
     component: Checkout
   },
   {
+    name: 'default',
     path: '*',
     component: NotFound
   }

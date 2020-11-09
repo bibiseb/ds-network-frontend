@@ -1,6 +1,6 @@
 <template>
   <div id="menu" class="box">
-    <cart></cart>
+    <cart v-if="showCart"></cart>
     <ul>
       <li><router-link to="/">Home</router-link></li>
       <li><router-link to="/todos">Objectives</router-link></li>
@@ -24,6 +24,11 @@ export default {
   mixins: [authMixin],
   components: {
     Cart
+  },
+  computed: {
+    showCart() {
+      return this.$route.name !== 'checkout'
+    }
   },
   methods: {
     ...mapActions([

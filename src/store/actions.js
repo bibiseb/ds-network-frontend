@@ -37,12 +37,14 @@ export default {
     if (!item) {
       const cart = state.cart
       cart.push({ _id, name, price, quantity: quantity ? quantity : 1 })
+      localStorage.setItem('cart', JSON.stringify(cart))
       commit('setCart', cart)
     } else {
       item.quantity += quantity ? quantity : 1
       const index = state.cart.findIndex((item) => item._id === _id)
       const cart = state.cart
       cart.splice(index, 1, item)
+      localStorage.setItem('cart', JSON.stringify(cart))
       commit('setCart', cart)
     }
   },
@@ -52,12 +54,38 @@ export default {
       const index = state.cart.findIndex((item) => item._id === _id)
       const cart = state.cart
       cart.splice(index, 1)
+      localStorage.setItem('cart', JSON.stringify(cart))
       commit('setCart', cart)
     }
+  },
+  resetCart({ commit }) {
+    const cart = []
+    localStorage.setItem('cart', JSON.stringify(cart))
+    commit('setCart', cart)
   },
   checkout({ commit }, payload) {
     return new Promise((resolve, reject) => {
       checkoutApi.order(payload).then((order) => {
+        commit('setOrder', order)
+        resolve()
+      }).catch((error) => {
+        reject(error)
+      })
+    })
+  },
+  loadOrder({ commit }, orderId) {
+    return new Promise((resolve, reject) => {
+      checkoutApi.view(orderId).then((order) => {
+        commit('setOrder', order)
+        resolve()
+      }).catch((error) => {
+        reject(error)
+      })
+    })
+  },
+  ownOrder({ commit }, orderId) {
+    return new Promise((resolve, reject) => {
+      checkoutApi.own(orderId).then((order) => {
         commit('setOrder', order)
         resolve()
       }).catch((error) => {
