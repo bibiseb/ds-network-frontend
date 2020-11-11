@@ -10,9 +10,9 @@ export default {
             })
         });
     },
-    play(videoId) {
+    authorize(videoId) {
         return new Promise((resolve, reject) => {
-            http.post(`videos/${videoId}/play`).then(() => {
+            http.post(`video/${videoId}/authorize`).then(() => {
                 resolve()
             }).catch((error) => {
                 reject(error)

@@ -12,7 +12,7 @@ export default {
   },
   create(payload) {
     return new Promise((resolve, reject) => {
-      http.post('todos', payload).then((response) => {
+      http.post('todo', payload).then((response) => {
         resolve(response.data)
       }).catch((error) => {
         reject(error)
@@ -21,7 +21,7 @@ export default {
   },
   update(todoId, payload) {
     return new Promise((resolve, reject) => {
-      http.patch(`todos/${todoId}`, payload).then((response) => {
+      http.patch(`todo/${todoId}`, payload).then((response) => {
         resolve(response.data)
       }).catch((error) => {
         reject(error)
@@ -30,7 +30,7 @@ export default {
   },
   remove(todoId) {
     return new Promise((resolve, reject) => {
-      http.delete(`todos/${todoId}`).then(() => {
+      http.delete(`todo/${todoId}`).then(() => {
         resolve()
       }).catch((error) => {
         reject(error)
